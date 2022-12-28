@@ -14,6 +14,9 @@
 		27213038295B6BAA00D2C9B6 /* NoteEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27213037295B6BAA00D2C9B6 /* NoteEditorViewController.swift */; };
 		27213063295CB3BD00D2C9B6 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 27213062295CB3BD00D2C9B6 /* Realm */; };
 		27213065295CB3BD00D2C9B6 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 27213064295CB3BD00D2C9B6 /* RealmSwift */; };
+		27213068295CCC2500D2C9B6 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27213067295CCC2500D2C9B6 /* Note.swift */; };
+		2721306B295CCD1300D2C9B6 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2721306A295CCD1300D2C9B6 /* StorageManager.swift */; };
+		2721306D295CCD2100D2C9B6 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2721306C295CCD2100D2C9B6 /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		2721302F295B326400D2C9B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27213031295B326400D2C9B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27213037295B6BAA00D2C9B6 /* NoteEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditorViewController.swift; sourceTree = "<group>"; };
+		27213067295CCC2500D2C9B6 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		2721306A295CCD1300D2C9B6 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		2721306C295CCD2100D2C9B6 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,8 @@
 		27213022295B326400D2C9B6 /* NotesApp */ = {
 			isa = PBXGroup;
 			children = (
+				27213069295CCCE000D2C9B6 /* Services */,
+				27213066295CCBBF00D2C9B6 /* Models */,
 				27213023295B326400D2C9B6 /* AppDelegate.swift */,
 				27213027295B326400D2C9B6 /* NotesListViewController.swift */,
 				27213037295B6BAA00D2C9B6 /* NoteEditorViewController.swift */,
@@ -66,6 +74,23 @@
 				27213031295B326400D2C9B6 /* Info.plist */,
 			);
 			path = NotesApp;
+			sourceTree = "<group>";
+		};
+		27213066295CCBBF00D2C9B6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				27213067295CCC2500D2C9B6 /* Note.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		27213069295CCCE000D2C9B6 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2721306A295CCD1300D2C9B6 /* StorageManager.swift */,
+				2721306C295CCD2100D2C9B6 /* DataManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,8 +171,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				27213038295B6BAA00D2C9B6 /* NoteEditorViewController.swift in Sources */,
+				2721306D295CCD2100D2C9B6 /* DataManager.swift in Sources */,
 				27213028295B326400D2C9B6 /* NotesListViewController.swift in Sources */,
+				2721306B295CCD1300D2C9B6 /* StorageManager.swift in Sources */,
 				27213024295B326400D2C9B6 /* AppDelegate.swift in Sources */,
+				27213068295CCC2500D2C9B6 /* Note.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

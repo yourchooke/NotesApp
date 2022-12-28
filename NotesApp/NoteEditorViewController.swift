@@ -62,6 +62,8 @@ class NoteEditorViewController: UIViewController {
     
     @objc private func save() {
         print(noteTextView.text ?? "")
+        let note = Note(value: [titleField.text ?? "", noteTextView.text ?? ""])
+        StorageManager.shared.save(note)
         navigationController?.popViewController(animated: true)
     }
 
