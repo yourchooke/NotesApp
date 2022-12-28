@@ -25,6 +25,7 @@ class NoteEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setupNavigationController()
         setupSubviews(titleField, noteTextView)
         setConstraints()
     }
@@ -35,21 +36,33 @@ class NoteEditorViewController: UIViewController {
         }
     }
     
+    private func setupNavigationController(){
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(save))
+    }
+    
     private func setConstraints() {
         titleField.translatesAutoresizingMaskIntoConstraints = false
         noteTextView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            titleField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            titleField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             titleField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
             noteTextView.topAnchor.constraint(equalTo: titleField.bottomAnchor, constant: 10),
             noteTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             noteTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            noteTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
+            noteTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            
         ])
     }
     
+    @objc private func save() {
+        print(noteTextView.text ?? "")
+        navigationController?.popViewController(animated: true)
+    }
 
 }

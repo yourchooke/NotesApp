@@ -40,8 +40,7 @@ class NotesListViewController: UITableViewController {
     
     @objc private func addNewNote() {
         let noteVC = NoteEditorViewController()
-        noteVC.modalPresentationStyle = .fullScreen
-        present(noteVC, animated: true)
+        navigationController?.pushViewController(noteVC, animated: true)
     }
     
 }
