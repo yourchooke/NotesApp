@@ -15,10 +15,10 @@ class NotesListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         noteList = StorageManager.shared.realm.objects(Note.self)
         view.backgroundColor = .white
-        setupNavigationBar()
         createTempData()
     }
     
@@ -47,6 +47,12 @@ class NotesListViewController: UITableViewController {
     
     // Navigation in Table view
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let note = noteList[indexPath.row]
+        openEditor(for: note)
+    }
+    
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let note = noteList[indexPath.row]
         let editAction = UIContextualAction(
@@ -63,25 +69,21 @@ class NotesListViewController: UITableViewController {
             }
         return UISwipeActionsConfiguration(actions: [editAction, deleteAction])
     }
+    
+    // Navigation bar settings
 
     private func setupNavigationBar() {
         title = "Notes"
-        
         let navBarAppearance = UINavigationBarAppearance()
-        
         navBarAppearance.backgroundColor = .systemBrown
         navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
 
-        
-        // Add buttons to navigation bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
             action: #selector(addNewNote)
         )
-        
         navigationController?.navigationBar.tintColor = .white
-        
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }

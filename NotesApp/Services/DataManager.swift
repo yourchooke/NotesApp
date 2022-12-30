@@ -16,8 +16,8 @@ class DataManager {
         if !UserDefaults.standard.bool(forKey: "DoWeHaveData") {
             
             let note = Note()
-            note.title = "Initial"
-            note.text = "Note"
+            note.title = "Hello"
+            note.text = "from Olga Yurchuk!"
                         
             DispatchQueue.main.async {
                 StorageManager.shared.save(note)

@@ -15,6 +15,7 @@ class NoteEditorViewController: UIViewController {
         let titleTextField = UITextField()
         titleTextField.text = note?.title ?? "Title"
         titleTextField.borderStyle = .roundedRect
+        titleTextField.font = .systemFont(ofSize: 18)
         return titleTextField
     }()
     
@@ -22,13 +23,14 @@ class NoteEditorViewController: UIViewController {
         let noteTextView = UITextView()
         noteTextView.text = note?.text ?? "Description"
         noteTextView.allowsEditingTextAttributes = true
+        noteTextView.font = .systemFont(ofSize: 16)
         return noteTextView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         setupNavigationController()
+        view.backgroundColor = .white
         setupSubviews(titleField, noteTextView)
         setConstraints()
     }
@@ -42,7 +44,7 @@ class NoteEditorViewController: UIViewController {
     // Bar button Items
     private func setupNavigationController(){
         navigationController?.navigationBar.prefersLargeTitles = false
-        
+        navigationController?.navigationBar.backItem?.backBarButtonItem?.title = "Cancel"
         let doneButton = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
