@@ -17,9 +17,9 @@ class NotesListViewController: UITableViewController {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         noteList = StorageManager.shared.realm.objects(Note.self)
-        
         view.backgroundColor = .white
         setupNavigationBar()
+        createTempData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,19 +40,38 @@ class NotesListViewController: UITableViewController {
         let note = noteList[indexPath.row]
         var content = cell.defaultContentConfiguration()
         content.text = note.title
+        content.secondaryText = note.text
         cell.contentConfiguration = content
         return cell
+    }
+    
+    // Navigation in Table view
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let note = noteList[indexPath.row]
+        let editAction = UIContextualAction(
+            style: .normal,
+            title: "Edit") { _, _, isDone in
+                self.openEditor(for: note)
+                isDone(true)
+            }
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: "Delete") { _, _, _ in
+                StorageManager.shared.delete(note)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        return UISwipeActionsConfiguration(actions: [editAction, deleteAction])
     }
 
     private func setupNavigationBar() {
         title = "Notes"
-        navigationController?.navigationBar.prefersLargeTitles = true
         
         let navBarAppearance = UINavigationBarAppearance()
         
         navBarAppearance.backgroundColor = .systemBrown
         navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+
         
         // Add buttons to navigation bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -67,8 +86,20 @@ class NotesListViewController: UITableViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
     
+    private func createTempData() {
+        DataManager.shared.createInitialData{
+            self.tableView.reloadData()
+        }
+    }
+    
     @objc private func addNewNote() {
         let noteVC = NoteEditorViewController()
+        navigationController?.pushViewController(noteVC, animated: true)
+    }
+
+    private func openEditor(for note: Note?){
+        let noteVC = NoteEditorViewController()
+        noteVC.note = note
         navigationController?.pushViewController(noteVC, animated: true)
     }
     

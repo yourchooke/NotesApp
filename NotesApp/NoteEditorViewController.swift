@@ -8,16 +8,19 @@
 import UIKit
 
 class NoteEditorViewController: UIViewController {
+    
+    var note: Note?
+    
     private lazy var titleField: UITextField = {
         let titleTextField = UITextField()
-        titleTextField.placeholder = "Title"
+        titleTextField.text = note?.title ?? "Title"
         titleTextField.borderStyle = .roundedRect
         return titleTextField
     }()
     
     private lazy var noteTextView: UITextView = {
         let noteTextView = UITextView()
-        noteTextView.text = "Description"
+        noteTextView.text = note?.text ?? "Description"
         noteTextView.allowsEditingTextAttributes = true
         return noteTextView
     }()
@@ -36,11 +39,21 @@ class NoteEditorViewController: UIViewController {
         }
     }
     
+    // Bar button Items
     private func setupNavigationController(){
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
+        navigationController?.navigationBar.prefersLargeTitles = false
+        
+        let doneButton = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
-            action: #selector(save))
+            action: #selector(done))
+        
+        let deleteButton = UIBarButtonItem(
+            barButtonSystemItem: .trash,
+            target: self,
+            action: #selector(deleteNote))
+        
+        navigationItem.rightBarButtonItems = [doneButton, deleteButton]
     }
     
     private func setConstraints() {
@@ -60,10 +73,20 @@ class NoteEditorViewController: UIViewController {
         ])
     }
     
-    @objc private func save() {
-        print(noteTextView.text ?? "")
-        let note = Note(value: [titleField.text ?? "", noteTextView.text ?? ""])
-        StorageManager.shared.save(note)
+    @objc private func done() {
+        if let note = note {
+            StorageManager.shared.edit(note, newTitle: titleField.text ?? "", newText: noteTextView.text ?? "")
+        } else {
+            let newNote = Note(value: [titleField.text ?? "", noteTextView.text ?? ""])
+            StorageManager.shared.save(newNote)
+        }
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func deleteNote() {
+        if let note = note {
+            StorageManager.shared.delete(note)
+        }
         navigationController?.popViewController(animated: true)
     }
 

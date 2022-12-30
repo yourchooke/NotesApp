@@ -15,8 +15,31 @@ class StorageManager {
     private init() {}
     
     func save(_ note: Note) {
-        try! realm.write {
+        write {
             realm.add(note)
+        }
+    }
+    
+    func edit(_ note: Note, newTitle: String, newText: String) {
+        write {
+            note.title = newTitle
+            note.text = newText
+        }
+    }
+        
+    func delete(_ note: Note) {
+        write {
+            realm.delete(note)
+        }
+    }
+
+    private func write(completion: () -> Void) {
+        do {
+            try realm.write {
+                completion()
+            }
+        } catch {
+            print(error)
         }
     }
     
