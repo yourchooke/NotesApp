@@ -77,7 +77,7 @@ class NotesListViewController: UITableViewController {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.backgroundColor = .systemBrown
         navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-
+        navigationItem.backButtonTitle = "Cancel"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,

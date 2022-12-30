@@ -44,7 +44,6 @@ class NoteEditorViewController: UIViewController {
     // Bar button Items
     private func setupNavigationController(){
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.navigationBar.backItem?.backBarButtonItem?.title = "Cancel"
         let doneButton = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
